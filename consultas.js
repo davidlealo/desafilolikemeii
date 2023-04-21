@@ -9,7 +9,7 @@ const pool = new Pool({
 })
 
 //Función para agregar post 
-const agregarPosts = async (titulo, img, descripcion, likes = 0) => {
+const agregarPost = async (titulo, img, descripcion, likes = 0) => {
     const consulta = 'INSERT INTO posts VALUES(DEFAULT, $1, $2, $3, $4)' 
     const values = [titulo, img, descripcion, likes]
     await pool.query(consulta, values)
@@ -17,20 +17,20 @@ const agregarPosts = async (titulo, img, descripcion, likes = 0) => {
 }
 
 //Función para agregar leer post 
-const leerPosts = async () => {
+const leerPost = async () => {
     const consulta = 'SELECT * FROM posts'
     const { rows } = await pool.query(consulta)
     return rows
 }
 
-const modificarPosts = async (id) => {
+const modificarPost = async (id) => {
     const consulta = "UPDATE posts SET likes = likes + 1 WHERE id = $1"
     const values = [id]
     await pool.query(consulta, values)
 }
 
 //Función para borrar post 
-const borrarPosts = async (id) => {
+const borrarPost = async (id) => {
     try {
         const consulta = "DELETE FROM posts WHERE id = $1"
         const values = [id]
@@ -41,4 +41,4 @@ const borrarPosts = async (id) => {
     }
 }
 
-module.exports = { agregarPosts, leerPosts, modificarPosts, borrarPosts }
+module.exports = { agregarPost, leerPost, modificarPost, borrarPost }
